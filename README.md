@@ -53,7 +53,7 @@ $ kubectl describe secrets mysql-user-pass
 To deploy the database type:
 
 ```bash
-$ kubectl apply -f mysql-deployment.yaml
+$ kubectl apply -f deployments/mysql-deployment.yaml
 ```
 You can check all the resources created in the cluster using the following commands:
 
@@ -85,7 +85,7 @@ root@social-network-app-mysql-67cf984757-9pjs6:/#
 Apply the manifest file to create the resources:
 
 ```bash
-$ kubectl apply -f social-network-server.yaml
+$ kubectl apply -f deployments/social-network-server.yaml
 ```
 
 You can check the created Pods like this:
@@ -102,7 +102,7 @@ social-network-server-756dc94cf6-b2ghs      1/1     Running   0          111s
 Apply the manifest file to deploy the frontend:
 
 ```bash
-$ kubectl apply -f social-network-client.yaml
+$ kubectl apply -f deployments/social-network-client.yaml
 ```
 
 ## Open the application:
