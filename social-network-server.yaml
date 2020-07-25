@@ -1,0 +1,73 @@
+apiVersion: apps/v1           # API version
+kind: Deployment              # Type of kubernetes resource
+metadata:
+  name: social-network-server    # Name of the kubernetes resource
+  labels:                     # Labels that will be applied to this resource
+    app: social-network-server
+spec:
+  replicas: 1                 # No. of replicas/pods to run in this deployment
+  selector:
+    matchLabels:              # The deployment applies to any pods mayching the specified labels
+      app: social-network-server
+  template:                   # Template for creating the pods in this deployment
+    metadata:
+      labels:                 # Labels that will be applied to each Pod in this deployment
+        app: social-network-server
+    spec:                     # Spec for the containers that will be run in the Pods
+      containers:
+      - name: social-network-server
+        image: klambov/kl-social-network-server:0.0.1-SNAPSHOT
+        imagePullPolicy: IfNotPresent
+        ports:
+          - name: http
+            containerPort: 8000 # The port that the container exposes
+        resources:
+          limits:
+            cpu: 0.5
+            memory: "800Mi"
+        env:                  # Environment variables supplied to the Pod
+        - name: SPRING_DATASOURCE_USERNAME # Name of the environment variable
+          valueFrom:          # Get the value of environment variable from kubernetes secrets
+            secretKeyRef:
+              name: mysql-user-pass
+              key: username
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-user-pass
+              key: password
+        - name: SPRING_DATASOURCE_URL
+          valueFrom:
+            secretKeyRef:
+              name: mysql-db-url
+              key: url
+        - name: CLOUDINARY_CLOUD_NAME
+          valueFrom:
+            secretKeyRef:
+              name: cloudinary-credentials
+              key: cloud-name
+        - name: CLOUDINARY_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: cloudinary-credentials
+              key: api-key
+        - name: CLOUDINARY_API_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: cloudinary-credentials
+              key: api-secret                            
+---
+apiVersion: v1                   # API version
+kind: Service                    # Type of the kubernetes resource
+metadata:                     
+  name: social-network-server    # Name of the kubernetes resource
+  labels:                        # Labels that will be applied to this resource
+    app: social-network-server
+spec:                         
+  type: NodePort                 # The service will be exposed by opening a Port on each node and proxying it. 
+  selector:
+    app: social-network-server   # The service exposes Pods with label `app=social-network-server`
+  ports:                         # Forward incoming connections on port 8000 to the target port 8000
+  - name: http
+    port: 8000
+    targetPort: 8000
