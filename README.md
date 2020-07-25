@@ -122,12 +122,12 @@ minikube service social-network-client
 
 1. **Home Page**
 
- ![App Screenshot](kl-social-net-home.PNG)
+ ![App Screenshot](images/kl-social-net-home.PNG)
 
 2. **Friends Page**
 
- ![App Screenshot](kl-social-net-friends.PNG)
+ ![App Screenshot](images/kl-social-net-friends.PNG)
 
 3. **Photos Page**
 
- ![App Screenshot](kl-social-net-photos.PNG)
+ ![App Screenshot](images/kl-social-net-photos.PNG)
