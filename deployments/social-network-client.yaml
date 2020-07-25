@@ -7,6 +7,12 @@ spec:
   selector:                     
     matchLabels:                # This deployment applies to Pods matching the specified labels
       app: social-network-client
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   template:                     # Template for creating the Pods in this deployment
     metadata:
       labels:                   # Labels that will be applied to all the Pods in this deployment
