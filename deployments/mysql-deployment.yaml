@@ -7,7 +7,7 @@ metadata:
 spec:
   storageClassName: standard      # Storage class. A PV Claim requesting the same storageClass can be bound to this volume. 
   capacity:
-    storage: 250Mi
+    storage: 900Mi
   accessModes:
     - ReadWriteOnce
   hostPath:                       # hostPath PersistentVolume is used for development and testing. It uses a file/directory on the Node to emulate network-attached storage
@@ -26,7 +26,7 @@ spec:                              # Access mode and resource limits
     - ReadWriteOnce                # ReadWriteOnce means the volume can be mounted as read-write by a single Node
   resources:
     requests:
-      storage: 250Mi
+      storage: 900Mi
 ---
 apiVersion: v1                    # API version
 kind: Service                     # Type of kubernetes resource 
